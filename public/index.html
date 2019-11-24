@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Duck shooter</title>
+    <script>
+        if (location.href.indexOf('https') == -1 && location.href.indexOf('localhost') == -1)
+            location.href = location.href.replace('http', 'https')
+    </script>
+</head>
+
+<body>
+    <div id="container">
+
+        <h1>Duck shooter</h1>
+
+        <h2><span>Id: </span><code id="idText"></code></h2>
+
+        <div id="buttons">
+            <button id="startButton">Start</button>
+            <button id="sendButton" disabled>Send</button>
+            <button id="closeButton" disabled>Stop</button>
+        </div>
+
+        <div id="sendReceive">
+            <div>
+                <h2>Second device id</h2>
+                <textarea id="otherId"
+                    placeholder="Type in id of other device. When one on both devices press start."></textarea>
+            </div>
+            <div>
+                <h2>Send</h2>
+                <textarea id="dataChannelSend" disabled
+                    placeholder="Press Start, enter some text, then press Send."></textarea>
+            </div>
+            <div>
+                <h2>Receive</h2>
+                <textarea id="dataChannelReceive" disabled></textarea>
+            </div>
+        </div>
+
+    </div>
+    <div id="pointer"></div>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/wouterbulten/kalmanjs/dist/kalman.min.js"></script>
+    <script src="app.js" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
+</body>
+
+</html>

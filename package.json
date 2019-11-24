@@ -1,0 +1,13 @@
+{
+  "name": "duck-shooter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Antoni Nowinowski",
+  "dependencies": {
+    "express-ws": "^4.0.0"
+  }
+}
