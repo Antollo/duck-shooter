@@ -31,8 +31,8 @@ sendButton.onclick = () => connection.send(dataChannelSend.value)
 closeButton.onclick = () => connection.close()
 
 
-const kalmanFilterAngleY = new KalmanFilter({ R: 0.1, Q: 3 })
-const kalmanFilterAngleX = new KalmanFilter({ R: 0.1, Q: 3 })
+const kalmanFilterAngleY = new KalmanFilter({ R: 0.005, Q: 0.2 })
+const kalmanFilterAngleX = new KalmanFilter({ R: 0.005, Q: 0.2 })
 
 /*const kalmanFilterPositionY = new KalmanFilter({ R: 0.1, Q: 3 })
 const kalmanFilterPositionX = new KalmanFilter({ R: 0.1, Q: 3 })
@@ -47,22 +47,11 @@ connection.onMessage(e => {
             const w = window.innerWidth / 2;
             const h = window.innerHeight / 2;
             //We need some actual math here
-            pointer.style.top = `${Math.sin(kalmanFilterAngleY.filter(v._x) * 1.5) * 1.1 * h + h}px`
-            pointer.style.left = `${Math.sin(kalmanFilterAngleX.filter(v._z) * 1.5) * 1.1 * w + w}px`
+            pointer.style.top = `${Math.tan(kalmanFilterAngleY.filter(v._x)) * 3 * h + h}px`
+            pointer.style.left = `${Math.tan(kalmanFilterAngleX.filter(v._z)) * 1.6 * w + w}px`
             console.log(v)
         }
-        //Getting position from acceleration sensor is failure
-        /*if (v && v.x && v.y && v.z) {
-            const w = window.innerWidth / 2;
-            const h = window.innerHeight / 2;
-            let u = {
-                x: kalmanFilterPositionY.filter(v.x * 10),
-                y: kalmanFilterPositionX.filter(v.z * -10)
-            }
-            console.log(u)
-            pointer.style.top = `${v.z * -10 * h + h}px`
-            pointer.style.left = `${v.x * 10 * w + w}px`
-        }*/
+        //Getting position from acceleration sensor is a failure
     } catch (e) {
         console.error(e)
     }
@@ -82,10 +71,3 @@ connection.onOpen(() => {
 
 
 sensors.onRotation(e => connection.send(JSON.stringify(e)))
-
-window.onbeforeunload = e => {
-    connection.close()
-    delete e['returnValue'];
-}
-
-window.connection = connection
